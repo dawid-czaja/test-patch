@@ -88,6 +88,7 @@ class OrderHelper extends AbstractHelper
      */
     public function changeOrderState($orderId, $newOrderState)
     {
+        return;
         try {
             $order = $this->orderRepository->get($orderId);
             $order->setState($newOrderState);
