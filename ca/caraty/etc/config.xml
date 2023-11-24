@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <ca_raty>
+                <active>1</active>
+                <can_capture>1</can_capture>
+                <can_use_checkout>1</can_use_checkout>
+                <currency>PLN</currency>
+                <debug>1</debug>
+                <debugReplaceKeys>MERCHANT_KEY</debugReplaceKeys>
+                <is_gateway>1</is_gateway>
+                <label>CA Raty</label>
+                <merchant_gateway_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                <model>CARatyFacade</model>
+                <order_status>pending_payment</order_status>
+                <payment_action>capture</payment_action>
+                <sort_order>1</sort_order>
+                <title>CA Raty</title>
+
+                <psp_id>PSP123456789</psp_id>
+                <password>password</password>
+                <excluded_categories>0</excluded_categories>
+                <min_cart_value>0</min_cart_value>
+                <min_product_price>0</min_product_price>
+                <button_simulator_url>https://ewniosek.credit-agricole.pl/eWniosek/res/buttons/calc_sm_comp.png</button_simulator_url>
+                <button_information_url>https://ewniosek.credit-agricole.pl/eWniosek/res/buttons/inst_md_comp.png</button_information_url>
+                <button_send_url>https://ewniosek.credit-agricole.pl/eWniosek/res/buttons/fill_md_comp.png</button_send_url>
+                <visibility_product>visible</visibility_product>
+                <visibility_cart>visible</visibility_cart>
+                <visibility_footer>visible</visibility_footer>
+                <validation_method>0</validation_method>
+                <use_regular_price>0</use_regular_price>
+                <calculate_tax>0</calculate_tax>
+            </ca_raty>
+        </payment>
+    </default>
+</config>

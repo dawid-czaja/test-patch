@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="ca_raty" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>CA Raty</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="10" showInWebsite="1"
+                       showInStore="1">
+                    <label>Moduł aktywny</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="psp_id" translate="label" type="text" sortOrder="2" showInDefault="10" showInWebsite="1"
+                       showInStore="1">
+                    <label>Identyfikator PSP</label>
+                </field>
+                <field id="password" translate="label" type="password" sortOrder="3" showInDefault="10" showInWebsite="1"
+                       showInStore="1">
+                    <label>Hasło</label>
+                </field>
+                <field id="excluded_categories" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Wykluczone kategorie</label>
+                    <!--<source_model>CA\CARaty\Model\Adminhtml\Source\CategoryList</source_model>-->
+                    <comment>(identyfikatory ID oddzielone przecinkiem np. 1,2,3)</comment>
+                </field>
+                <field id="min_cart_value" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Minimalna wartość koszyka</label>
+                </field>
+                <field id="button_simulator_url" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Przycisk "Oblicz Ratę"</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\ButtonSimulator</source_model>
+                </field>
+                <field id="min_product_price" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Minimalna cena produktu</label>
+                </field>
+                <field id="button_information_url" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Przycisk "Raty"</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\ButtonInformation</source_model>
+                </field>
+                <field id="button_send_url" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Przycisk "Wypełnij wniosek"</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\ButtonSend</source_model>
+                </field>
+                <field id="visibility_product" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Wyświetlanie przycisku - karta produktu</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\Visibility</source_model>
+                </field>
+                <field id="product_img_calc" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Miniatura produktu w symulatorze</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\CalcImgVisibility</source_model>
+                </field>
+                <field id="visibility_cart" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Wyświetlanie przycisku - koszyk</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\Visibility</source_model>
+                </field>
+                <field id="visibility_footer" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Wyświetlanie przycisku - stopka strony</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\Visibility</source_model>
+                </field>
+                <field id="validation_method" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Alternatywna metoda alokacji cen wniosku</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="use_regular_price" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Użycie ceny bazowej produktu "regular_price"</label>
+                    <comment>(alternatywna metoda obliczeń")</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="calculate_tax" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Dodanie podatku do ceny produktu</label>
+                    <comment>(alternatywna metoda obliczeń")</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="response_success" translate="label comment" type="label" sortOrder="100" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Adres powrotu pozytywnego</label>
+                    <comment>
+                        <model>CA\CARaty\Model\Adminhtml\Comment\Success</model>
+                    </comment>
+                </field>
+                <field id="response_failure" translate="label" type="label" sortOrder="100" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Adres powrotu błednego</label>
+                    <comment>
+                        <model>CA\CARaty\Model\Adminhtml\Comment\Failure</model>
+                    </comment>
+                </field>
+                <field id="offer_id" translate="label" type="text" sortOrder="2" showInDefault="10" showInWebsite="1"
+                       showInStore="1">
+                    <label>offer_id</label>
+                </field>
+                <field id="default_priority" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Domyślny priorytet ofert</label>
+                    <source_model>CA\CARaty\Model\Adminhtml\Source\DefaultPriority</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

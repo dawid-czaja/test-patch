@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="footer_links">
+            <block class="CA\CARaty\Block\Footer" name="footer.caraty"
+                   template="CA_CARaty::caraty-footer.phtml" after="-"/>
+        </referenceBlock>
+    </body>
+</page>

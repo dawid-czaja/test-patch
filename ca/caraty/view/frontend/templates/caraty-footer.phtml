@@ -1,0 +1,21 @@
+<?php
+$helper = $this->helper('CA\CARaty\Helper\Data');
+if (
+    $helper->getConfig('payment/ca_raty/active') == 1
+    && $helper->getConfig('payment/ca_raty/visibility_footer') != 'disabled'
+) :?>
+    <div id="caraty_footer">
+        <script type="text/javascript">
+            function ProceduraRatalnaCA() {
+                window.open('https://ewniosek.credit-agricole.pl/eWniosek/procedure.jsp?PARAM_TYPE=RAT&PARAM_PROFILE=<?php echo $helper->getConfig('payment/ca_raty/psp_id'); ?>');
+            }
+        </script>
+        <?php if ($helper->getConfig('payment/ca_raty/visibility_footer') != 'hidden') : ?>
+            <p class="buttons_bottom_block">
+                <a href="" onclick="ProceduraRatalnaCA();" style="cursor: pointer;" target="raty_footer" title="Kupuj na Raty!">
+                    <img alt="" src="<?php echo $helper->getConfig('payment/ca_raty/button_information_url'); ?>">
+                </a>
+            </p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

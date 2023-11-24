@@ -1,0 +1,72 @@
+<?php
+
+use Magento\Catalog\Pricing\Price\FinalPrice as CatalogFinalPrice;
+
+$helper = $this->helper('CA\CARaty\Helper\Data');
+$productPrice = $this->getProduct()->getPrice();
+if ($productPrice == 0) {
+    $productPrice = $this->getProduct()->getPriceInfo()->getPrice(CatalogFinalPrice::PRICE_CODE)->getValue();
+}
+if (
+    $helper->getConfig('payment/ca_raty/active') == 1
+    && $helper->getConfig('payment/ca_raty/visibility_product') != 'disabled'
+    && !$helper->isExcluded($this->getProduct()->getCategoryIds())
+    && $helper->getConfig('payment/ca_raty/min_product_price') <= $productPrice
+) :
+    ?>
+    <div id="caraty_simulator">
+        <script type="text/javascript">
+            var ca_raty_total = <?php echo number_format($productPrice, 2, '.', ''); ?>;
+
+            function reformatPrice() {
+                var price = jQuery('span.price-final_price span span.price');
+                if (price.length === 0) {
+                    return ca_raty_total;
+                }
+
+                return parseFloat(price.text().replace(',', '.').replace(/\s+/g, '').replace(/([a-zA-Z])/g, "")).toFixed(2);
+            }
+
+            function PoliczRateCA(event, args) {
+                let total;
+                if (typeof args !== 'undefined') {
+                    if (typeof args === 'number') {
+                        total = args;
+                    }
+                }
+                if (typeof total === 'undefined') {
+                    let currentPrice = reformatPrice();
+                    if (currentPrice !== 0) {
+                        total = currentPrice;
+                    }
+                }
+                var url = 'https://ewniosek.credit-agricole.pl/eWniosek/simulator.jsp?PARAM_TYPE=RAT&PARAM_PROFILE=<?php echo $helper->getConfig('payment/ca_raty/psp_id'); ?>&PARAM_CREDIT_AMOUNT=' + total;
+
+                if('<?php echo $helper->isAutoButton(); ?>') {
+                    var offerId = '<?php echo $helper->getProductOfferId($this->getProduct());;?>';
+                    url += '&offerId=' + offerId;
+                }
+                if('<?php echo $helper->getConfig('payment/ca_raty/product_img_calc'); ?>' === '1') {
+                    var img = document.getElementsByClassName('fotorama__img')[0].src;
+                    url += '&cart.imageUrl=' + img;
+                }
+
+                window.open(url, 'Policz_rate');
+                event.preventDefault();
+        }
+        </script>
+        <?php if ($helper->getConfig('payment/ca_raty/visibility_product') != 'hidden') : ?>
+            <p class="buttons_bottom_block">
+                <?php if ($helper->isAutoButton() === true) : ?>
+                    <a onclick="PoliczRateCA(event);" style="cursor: pointer;" target="raty_symulator" title="Kupuj na Raty!">
+                        <img alt="" src="<?php echo $helper->getAutoButtonUrl($productPrice, $offerId); ?>">
+                    </a>
+                <?php else : ?>
+                    <a href="" onclick="PoliczRateCA(event);" style="cursor: pointer;" target="raty_symulator" title="Kupuj na Raty!">
+                        <img alt="" src="<?php echo $helper->getConfig('payment/ca_raty/button_simulator_url'); ?>">
+                    </a>
+                <?php endif; ?>
+            </p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

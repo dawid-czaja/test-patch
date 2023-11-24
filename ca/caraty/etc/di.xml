@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="CARatyFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">\CA\CARaty\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">CA\CARaty\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">CARatyValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">CARatyCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <virtualType name="CARatyConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">\CA\CARaty\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Logger, initialized with CARatyConfig -->
+    <virtualType name="CaRatyGatewayLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">CARatyConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="CA\CARaty\Gateway\Http\Client\ClientMock">
+        <arguments>
+            <argument name="logger" xsi:type="object">CaRatyGatewayLogger</argument>
+        </arguments>
+    </type>
+
+    <!-- Commands infrastructure -->
+    <virtualType name="CARatyCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="capture" xsi:type="string">CARatyCaptureCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Capture command -->
+    <virtualType name="CARatyCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">CA\CARaty\Gateway\Request\CaptureRequest</argument>
+            <argument name="handler" xsi:type="object">CA\CARaty\Gateway\Response\TxnIdHandler</argument>
+            <argument name="transferFactory" xsi:type="object">CA\CARaty\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">CA\CARaty\Gateway\Validator\ResponseCodeValidator</argument>
+            <argument name="client" xsi:type="object">CA\CARaty\Gateway\Http\Client\ClientMock</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Capture Request -->
+    <type name="CA\CARaty\Gateway\Request\CaptureRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">CARatyConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Value handlers infrastructure -->
+    <virtualType name="CARatyValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">CARatyConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CARatyConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">CARatyConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="CA\CARaty\Block\Info">
+        <arguments>
+            <argument name="config" xsi:type="object">CARatyConfig</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,48 @@
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label class="label" data-bind="attr: {'for': getCode()}">
+            <span>CA Raty</span>
+        </label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div id="caraty_payment_tab">
+            <h3>Wybrałeś formę płatności CA Raty.</h3>
+            <p>
+                Informacje niezbędne do zakupu na raty zostaną przedstawione na kolejnej stronie.
+            </p>
+            <div class="checkout-agreements-block">
+                <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <form method="POST" id="caraty-form" data-bind="action: formUrl">
+                        <button class="action primary checkout" type="submit" data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        enable: (getCode() == isChecked()),
+                        css: {disabled: !isPlaceOrderActionAllowed()}
+                        " data-role="review-save" title="Place Order">
+                            <span data-bind="i18n: 'Place Order'">Place Order</span>
+                        </button>
+                        <input type="hidden" name="email" data-bind="value: email"/>
+                        <input type="hidden" name="orderNumber" data-bind="value: orderNumber"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

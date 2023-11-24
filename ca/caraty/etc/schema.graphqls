@@ -1,0 +1,23 @@
+#Magento CARaty GraphQl Schema
+
+type Query {
+    caraty(orderId: Int!): CARaty @resolver(class: "CA\\CARaty\\Model\\Resolver\\CARatyResolver") @doc(description: "The CARaty query returns data required by simulator")
+}
+
+type CARaty @doc(description: "CARaty defines the required data") {
+
+    PARAM_CREDIT_AMOUNT: Float,
+    orderNumber: String,
+    PARAM_PROFILE: String,
+    email: String,
+    PARAM_HASH: String,
+    randomizer: String,
+    items: [Item]
+
+}
+
+type Item {
+  name: String @doc(description: "name"),
+  price: Float @doc(description: "price"),
+  quantity: String @doc(description: "quantity"),
+}

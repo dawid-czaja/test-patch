@@ -1,0 +1,15 @@
+<script type="text/javascript">
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function (customerData) {
+        var sections = ['cart'];
+        customerData.invalidate(sections);
+        customerData.reload(sections, true);
+    });
+</script>
+<h3>Wniosek został złożony poprawnie - dziękujemy.
+    <br/><br/>
+    W ciągu 24 h skontaktuje się z Tobą doradca Credit Agricole Bank Polska S.A., potem Twoje zamówienie będzie mogło
+    być zrealizowane.
+    <br/><br/>
+</h3>

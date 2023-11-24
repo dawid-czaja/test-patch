@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<body>
+    <referenceContainer name="order.success.additional.info">
+        <block class="CA\CARaty\Block\Checkout\Success"
+               name="caraty.order.success"
+               template="CA_CARaty::caraty-checkout-success.phtml"
+               after="-">
+        </block>
+    </referenceContainer>
+</body>
